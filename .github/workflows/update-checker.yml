@@ -4,7 +4,7 @@
 # File: .github/workflows/update-checker.yml
 # Description: Source code update checker
 #
-# Copyright (c) 2019-2025 P3TERX <https://p3terx.com>
+# Copyright (c) 2019-2026 P3TERX <https://p3terx.com>
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -35,7 +35,7 @@ jobs:
 
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: .commitHash
         key: commitHash_${{ steps.getHash.outputs.commitHash }}
