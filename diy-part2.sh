@@ -20,11 +20,11 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 # Modify default Password
-sed -i 's/root:::0:99999:7:::/root:$1$0MHbqDVw$FMCswXfbF5apRBrTWoVfA0:19333:0:99999:7:::/g' package/base-files/files/etc/shadow
+#sed -i 's/root:::0:99999:7:::/root:$1$0MHbqDVw$FMCswXfbF5apRBrTWoVfA0:19333:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # Modify default TimeZone
-sed -i 's/UTC/CST-8/g' package/base-files/files/bin/config_generate
-sed -i "/.*ttylogin='0'.*/i\		set system.@system[-1].zonename='Asia/Shanghai'" package/base-files/files/bin/config_generate
+#sed -i 's/UTC/CST-8/g' package/base-files/files/bin/config_generate
+#sed -i "/.*ttylogin='0'.*/i\		set system.@system[-1].zonename='Asia/Shanghai'" package/base-files/files/bin/config_generate
 
 # update sing-box
 rm -rf ./feeds/packages/net/sing-box
