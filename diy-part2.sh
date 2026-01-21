@@ -18,3 +18,9 @@
 
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+
+# update sing-box
+#rm -rf ./feeds/packages/net/sing-box
+#git clone https://github.com/immortalwrt/packages.git temp-packages
+#cp -rf ./temp-packages/net/sing-box ./feeds/packages/net/sing-box
+#rm -rf temp-packages
