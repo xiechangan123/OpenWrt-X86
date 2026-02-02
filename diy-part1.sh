@@ -15,7 +15,10 @@
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+#echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
+
+# Delete luci-app-attendedsysupgrade
+sed -i '/luci-app-attendedsysupgrade/d' feeds/luci/applications/Makefile
