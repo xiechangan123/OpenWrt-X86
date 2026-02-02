@@ -18,7 +18,6 @@
 #echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
 
 # Use github mirror 
-echo 'src-git packages https://github.com/openwrt/packages.git' >>feeds.conf.default
 echo 'src-git luci https://github.com/openwrt/luci.git' >>feeds.conf.default
 echo 'src-git routing https://github.com/openwrt-routing/packages.git' >>feeds.conf.default
 echo 'src-git telephony https://github.com/openwrt/telephony.git' >>feeds.conf.default
