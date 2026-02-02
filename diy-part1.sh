@@ -19,6 +19,3 @@
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
-
-# Delete luci-app-attendedsysupgrade
-sed -i '/luci-app-attendedsysupgrade/d' feeds/luci/applications/Makefile
