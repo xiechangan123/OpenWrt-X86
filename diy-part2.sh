@@ -24,17 +24,3 @@ rm -rf ./feeds/packages/net/sing-box
 git clone https://github.com/immortalwrt/packages.git temp-packages
 cp -rf ./temp-packages/net/sing-box ./feeds/packages/net/sing-box
 rm -rf temp-packages
-
-# Delete luci-app-attendedsysupgrade
-rm -rf feeds/luci/applications/luci-app-attendedsysupgrade
-for mf in \
-    package/feeds/luci/luci/Makefile \
-    package/feeds/luci/luci-nginx/Makefile \
-    package/feeds/luci/luci-ssl/Makefile \
-    package/feeds/luci/luci-ssl-openssl/Makefile \
-    package/feeds/luci/luci-*/Makefile; do
-    if [ -f "$mf" ]; then
-        sed -i '/luci-app-attendedsysupgrade/d' "$mf"
-        sed -i '/attendedsysupgrade-common/d' "$mf"
-    fi
-done
