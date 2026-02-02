@@ -18,10 +18,11 @@
 #echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
 
 # Use github mirror 
-src-git packages https://github.com/openwrt/packages.git
-src-git luci https://github.com/openwrt/luci.git
-src-git routing https://github.com/openwrt-routing/packages.git
-src-git telephony https://github.com/openwrt/telephony.git
+echo 'src-git packages https://github.com/openwrt/packages.git' >>feeds.conf.default
+echo 'src-git luci https://github.com/openwrt/luci.git' >>feeds.conf.default
+echo 'src-git routing https://github.com/openwrt-routing/packages.git' >>feeds.conf.default
+echo 'src-git telephony https://github.com/openwrt/telephony.git' >>feeds.conf.default
+echo 'src-git video https://github.com/openwrt/video.git' >>feeds.conf.default
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
