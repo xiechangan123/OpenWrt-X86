@@ -19,23 +19,22 @@
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
-# Delete luci-app-attendedsysupgrade
-rm -rf feeds/luci/applications/luci-app-attendedsysupgrade
-
 # update sing-box
 rm -rf ./feeds/packages/net/sing-box
 git clone https://github.com/immortalwrt/packages.git temp-packages
 cp -rf ./temp-packages/net/sing-box ./feeds/packages/net/sing-box
 rm -rf temp-packages
 
+# Delete luci-app-attendedsysupgrade
+rm -rf feeds/luci/applications/luci-app-attendedsysupgrade
 for mf in \
     package/feeds/luci/luci/Makefile \
     package/feeds/luci/luci-nginx/Makefile \
     package/feeds/luci/luci-ssl/Makefile \
-    package/feeds/luci/luci-ssl-*/Makefile \
+    package/feeds/luci/luci-ssl-openssl/Makefile \
     package/feeds/luci/luci-*/Makefile; do
     if [ -f "$mf" ]; then
         sed -i '/luci-app-attendedsysupgrade/d' "$mf"
-        sed -i '/attendedsysupgrade-common/d' "$mf"  # 顺便删相关 common 依赖，如果有
+        sed -i '/attendedsysupgrade-common/d' "$mf"
     fi
 done
