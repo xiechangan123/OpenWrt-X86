@@ -23,7 +23,6 @@ echo 'src-git luci https://github.com/openwrt/luci.git' >>feeds.conf.default
 echo 'src-git routing https://github.com/openwrt-routing/packages.git' >>feeds.conf.default
 echo 'src-git telephony https://github.com/openwrt/telephony.git' >>feeds.conf.default
 echo 'src-git video https://github.com/openwrt/video.git' >>feeds.conf.default
-git clone https://github.com/openwrt/openwrt.git
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
