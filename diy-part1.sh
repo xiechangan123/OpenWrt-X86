@@ -17,7 +17,7 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
 
-# Use github mirror 
+# Use github mirrors 
 sed -i 's|git.openwrt.org/feed|github.com/openwrt|g' feeds.conf.default
 sed -i 's|git.openwrt.org/project|github.com/openwrt|g' feeds.conf.default
 
