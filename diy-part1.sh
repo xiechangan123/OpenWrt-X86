@@ -4,7 +4,7 @@
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
-# Copyright (c) 2019-2025 P3TERX <https://p3terx.com>
+# Copyright (c) 2019-2026 P3TERX <https://p3terx.com>
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -15,7 +15,11 @@
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+#echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
+
+# Use github mirror 
+sed -i 's|git.openwrt.org/openwrt|github.com/openwrt|g' feeds.conf.default
+sed -i 's|git.openwrt.org/feed|github.com/openwrt|g' feeds.conf.default
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
