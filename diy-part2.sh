@@ -19,6 +19,9 @@
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
+# Delete luci-app-attendedsysupgrade
+rm -rf feeds/luci/applications/luci-app-attendedsysupgrade
+
 # update sing-box
 rm -rf ./feeds/packages/net/sing-box
 git clone https://github.com/immortalwrt/packages.git temp-packages
