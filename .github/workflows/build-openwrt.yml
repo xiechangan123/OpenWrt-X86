@@ -21,7 +21,8 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 15 1,10,23 * * *
+    - cron: 50 9 * * 1-5
+    - cron: 15 1,10,23 * *  6,0
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
