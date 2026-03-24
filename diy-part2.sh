@@ -20,5 +20,7 @@
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 # Use sing-box-1.13.3
+echo "🔍 正在获取 sing-box 1.13.3 的正确 HASH..."
+wget -qO- https://codeload.github.com/SagerNet/sing-box/tar.gz/v1.13.3 | sha256sum | awk '{print $1}'
 sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.3/g' feeds/packages/net/sing-box/Makefile
-sed -i 's/PKG_HASH:=.*/PKG_HASH:=e89ffdadf11d4b34d12b2c0659efea0f0786b2396ea4638c61a06e7772783ca5/g' feeds/packages/net/sing-box/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=bf8933cd43e2797afcffb47528282e1c1aee078bf5eeda888d80a151fef726e1/g' feeds/packages/net/sing-box/Makefile
