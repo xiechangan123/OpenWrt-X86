@@ -19,17 +19,6 @@
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
-# use singbox1.13.3
-mkdir -p files/usr/bin
-wget -qO- "https://github.com/SagerNet/sing-box/releases/download/v1.13.3/sing-box-1.13.3-linux-amd64-musl.tar.gz" | tar -xz -C files/usr/bin --strip-components=1 --wildcards '*/sing-box'
-chmod +x files/usr/bin/sing-box
-
-# 可选：打印版本号验证（编译时会显示在日志里）
-if [ -f files/usr/bin/sing-box ]; then
-    echo "sing-box 安装成功，版本信息："
-    files/usr/bin/sing-box version
-else
-    echo "警告：sing-box 文件未成功生成！"
-fi
-
-echo "========== sing-box 安装完成 =========="
+# Use sing-box-1.13.3
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.3/g' feeds/packages/net/sing-box/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=e89ffdadf11d4b34d12b2c0659efea0f0786b2396ea4638c61a06e7772783ca5/g' feeds/packages/net/sing-box/Makefile
