@@ -26,6 +26,5 @@ git clone https://github.com/xiechangan123/homeproxy package/homeproxy
 
 # use singbox1.13.3
 mkdir -p files/usr/bin
-wget -qO- "https://github.com/SagerNet/sing-box/releases/download/v1.13.3/sing-box-1.13.3-linux-amd64-musl.tar.gz" | \
-  tar -xz -C files/usr/bin --strip-components=1 sing-box
+wget -qO- "https://github.com/SagerNet/sing-box/releases/download/v1.13.3/sing-box-1.13.3-linux-amd64-musl.tar.gz" | tar -xz -C files/usr/bin --strip-components=1 sing-box
 chmod +x files/usr/bin/sing-box
