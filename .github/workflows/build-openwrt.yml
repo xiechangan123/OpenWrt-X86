@@ -148,7 +148,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
         
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v2
+      uses: xiechangan123/action-gh-release@master
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -158,13 +158,13 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: xiechangan123/delete-workflow-runs@main
       with:
         retain_days: 1
         keep_minimum_runs: 3
 
     - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.3.4
+      uses: MedyMa/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
