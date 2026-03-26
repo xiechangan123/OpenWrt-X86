@@ -4,7 +4,7 @@
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
-# Copyright (c) 2019-2025 P3TERX <https://p3terx.com>
+# Copyright (c) 2019-2026 P3TERX <https://p3terx.com>
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
