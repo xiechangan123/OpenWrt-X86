@@ -22,5 +22,5 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # Use sing-box-1.13.4
 #echo "🔍 正在获取 sing-box 1.13.4 的正确 HASH..."
 #wget -qO- https://codeload.github.com/SagerNet/sing-box/tar.gz/v1.13.4 | sha256sum | awk '{print $1}'
-sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.3/g' feeds/packages/net/sing-box/Makefile
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.4/g' feeds/packages/net/sing-box/Makefile
 sed -i 's/PKG_HASH:=.*/PKG_HASH:=7f357a6bf42c1a3d02e29ebad09c14482cc7d4f07e5cb73001424638b34ce959/g' feeds/packages/net/sing-box/Makefile
