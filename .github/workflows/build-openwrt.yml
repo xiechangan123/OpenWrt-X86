@@ -21,8 +21,7 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 50 9 * * 1-5
-    - cron: 15 1,10,23 * * 6,0
+    - cron: 0 9 * * 1-5
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
@@ -143,7 +142,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=Homeproxy-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        echo "release_tag=Openwrt-6.18-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
         [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
