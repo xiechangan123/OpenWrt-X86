@@ -13,47 +13,64 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: main
-
+  OPENWRT_REPO: https://github.com/openwrt/openwrt
+  OPENWRT_BRANCH: main
+  PACKAGES_REPO: https://github.com/openwrt/packages
+  LUCI_REPO: https://github.com/openwrt/luci
+  ROUTING_REPO: https://github.com/openwrt/routing
+  
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: 0 */18 * * *
-
+  schedule:
+    - cron: '0,30 * * * 6,0'
+    
 jobs:
   check:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get Commit Hash
+        id: getHash
+        run: |
+          echo "openwrt=$(git ls-remote ${{ env.OPENWRT_REPO }} ${{ env.OPENWRT_BRANCH }} | cut -f1)" >> $GITHUB_OUTPUT
+          echo "packages=$(git ls-remote ${{ env.PACKAGES_REPO }} HEAD | cut -f1)" >> $GITHUB_OUTPUT
+          echo "luci=$(git ls-remote ${{ env.LUCI_REPO }} HEAD | cut -f1)" >> $GITHUB_OUTPUT
+          echo "routing=$(git ls-remote ${{ env.ROUTING_REPO }} HEAD | cut -f1)" >> $GITHUB_OUTPUT
 
-    - name: Get Commit Hash
-      id: getHash
-      run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
-        echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      - name: Compare Commit Hash
+        id: cacheHash
+        uses: actions/cache@v5
+        with:
+          path: .commitHash
+          key: update-checker-${{ steps.getHash.outputs.openwrt }}-${{ steps.getHash.outputs.packages }}-${{ steps.getHash.outputs.luci }}-${{ steps.getHash.outputs.routing }}
 
-    - name: Compare Commit Hash
-      id: cacheHash
-      uses: actions/cache@v5
-      with:
-        path: .commitHash
-        key: commitHash_${{ steps.getHash.outputs.commitHash }}
+      - name: Save New Hash
+        if: steps.cacheHash.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p .commitHash
+          echo "${{ steps.getHash.outputs.openwrt }}" > .commitHash/openwrt
+          echo "${{ steps.getHash.outputs.packages }}" > .commitHash/packages
+          echo "${{ steps.getHash.outputs.luci }}" > .commitHash/luci
+          echo "${{ steps.getHash.outputs.routing }}" > .commitHash/routing
+          cat .commitHash/*
 
-    - name: Save New Commit Hash
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      run: |
-        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
+      - name: Trigger Build
+        if: steps.cacheHash.outputs.cache-hit != 'true'
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ github.token }}
+          event-type: Source Code Update
+          client-payload: |
+            {
+              "reason": "Source Code Update",
+              "openwrt_hash": "${{ steps.getHash.outputs.openwrt }}",
+              "packages_hash": "${{ steps.getHash.outputs.packages }}",
+              "luci_hash": "${{ steps.getHash.outputs.luci }}",
+              "routing_hash": "${{ steps.getHash.outputs.routing }}"
+            }
 
-    - name: Trigger build
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      uses: peter-evans/repository-dispatch@v4
-      with:
-        token: ${{ github.token }}
-        event-type: Source Code Update
-
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
-      with:
-        retain_days: 0
-        keep_minimum_runs: 2
+      - name: Delete old workflow runs
+        uses: xiechangan123/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 2
