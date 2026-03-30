@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0,30 * * * 6,0'
-    - cron: '0,30 17-23 * * 1-5'   # 分钟、小时、日期、月份、星期
+    - cron: '0,30 17-23 * * 1-5'
       timezone: 'Asia/Shanghai'
     
 jobs:
