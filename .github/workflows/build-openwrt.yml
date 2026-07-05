@@ -37,7 +37,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu 26.04 Arm64 
 
     steps:
     - name: Checkout
