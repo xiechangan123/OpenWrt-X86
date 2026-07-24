@@ -164,7 +164,7 @@ jobs:
         keep_minimum_runs: 3
 
     - name: Remove old Releases
-      uses: MedyMa/delete-older-releases@master
+      uses: xiechangan123/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
