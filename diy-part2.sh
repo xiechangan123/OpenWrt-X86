@@ -19,8 +19,8 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
-# Use sing-box-1.13.15
-#echo "🔍 正在获取 sing-box 1.13.15 的正确 HASH..."
-#wget -qO- https://codeload.github.com/SagerNet/sing-box/tar.gz/v1.13.15 | sha256sum | awk '{print $1}'
-sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.15/g' feeds/packages/net/sing-box/Makefile
-sed -i 's/PKG_HASH:=.*/PKG_HASH:=b43456c0cb2d4d7b81664010b2149a35ed6e3f6c245d78bcc7caf27c46eca816/g' feeds/packages/net/sing-box/Makefile
+# Use sing-box-1.13.16
+#echo "🔍 正在获取 sing-box 1.13.16 的正确 HASH..."
+#wget -qO- https://codeload.github.com/SagerNet/sing-box/tar.gz/v1.13.16 | sha256sum | awk '{print $1}'
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.16/g' feeds/packages/net/sing-box/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=5d8201669387d0caded7a22c71682b3c025afef7bac8704cceabed52ea8bde5d/g' feeds/packages/net/sing-box/Makefile
