@@ -18,7 +18,7 @@
 #echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' >>feeds.conf.default
 
 # Use github mirrors
-sed -i -E 's|git\.openwrt\.org/(feed|project)|github.com/openwrt|g' feeds.conf.default
+sed -i 's|git\.openwrt\.org|github.com/openwrt|g' feeds.conf.default
 
 # Add packages
 git clone https://github.com/xiechangan123/homeproxy package/homeproxy
