@@ -23,6 +23,10 @@ on:
 #  schedule:
 #    - cron: 0 9 * * 1-5
 
+concurrency:
+  group: OpenWrt Builder          # 同一组内只允许一个运行
+  cancel-in-progress: true      # 有新的就取消正在运行的旧任务
+
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: main
