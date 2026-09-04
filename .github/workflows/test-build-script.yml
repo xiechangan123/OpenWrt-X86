@@ -10,16 +10,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install dependencies + repo tool
         run: |
           sudo apt-get update
           sudo apt-get install -y git-core curl python3
-          mkdir -p ~/bin
-          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-          chmod a+x ~/bin/repo
+          
+          mkdir -p $HOME/bin
+          curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
+          chmod a+x $HOME/bin/repo
+          
           echo "$HOME/bin" >> $GITHUB_PATH
+          export PATH="$HOME/bin:$PATH"
+          
+          which repo
           repo --version
 
       - name: Test repo init + K90PM local manifest
@@ -40,20 +45,17 @@ jobs:
           cat .repo/local_manifests/myron.xml
           echo "--------------------------"
 
-          echo "===== 4. 验证关键项目是否存在于 manifest ====="
-          # 检查几个最重要的仓库是否被正确声明
+          echo "===== 4. 验证关键项目是否存在 ====="
           grep -q "device/xiaomi/myron" .repo/local_manifests/myron.xml && echo "✅ device/xiaomi/myron 存在"
           grep -q "device/xiaomi/sm8850-common" .repo/local_manifests/myron.xml && echo "✅ sm8850-common 存在"
           grep -q "kernel/xiaomi/myron-prebuilt" .repo/local_manifests/myron.xml && echo "✅ prebuilt kernel 存在"
           grep -q "K90PM-Development" .repo/local_manifests/myron.xml && echo "✅ K90PM-Development 仓库引用正常"
 
-          echo "===== 5. 测试只同步 manifest 本身 ====="
+          echo "===== 5. 测试只同步 manifest ====="
           repo sync -c --no-tags --no-clone-bundle -j$(nproc) .repo/manifests || true
 
-          echo "===== 6. 显示最终 local_manifests 状态 ====="
+          echo "===== 6. 最终状态 ====="
           ls -la .repo/local_manifests/
 
           echo ""
           echo "✅ 轻量验证全部完成！"
-          echo "repo init + K90PM local_manifest 下载与检查均正常。"
-          echo "可以放心去 Crave 跑完整编译了。"
