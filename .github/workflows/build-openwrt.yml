@@ -84,51 +84,16 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Setup SSH via Cloudflare Tunnel
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh != 'false') || contains(github.event.action, 'ssh')
-      run: |
-        # 1. 安装 cloudflared
-        curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-        sudo dpkg -i cloudflared.deb
-
-        # 2. 设置 SSH 密码
-        PASS="123456"
-        echo "runner:$PASS" | sudo chpasswd
-        echo "root:$PASS" | sudo chpasswd
-        sudo systemctl start ssh
-
-        # 3. 启动临时隧道
-        cloudflared tunnel --url tcp://localhost:22 > cloudflare.log 2>&1 &
-        sleep 8
-
-        # 4. 提取并打印连接信息
-        echo "========================================================"
-        echo "Cloudflare Tunnel Started!"
-        URL=$(grep -oE '[a-zA-Z0-9-]+\.trycloudflare\.com' cloudflare.log | head -n 1)
-        echo "Domain: $URL"
-        echo "SSH Password: $PASS"
-        echo ""
-        echo "【本地电脑连接方法】"
-        echo "1. 本地需安装 cloudflared: brew install cloudflared 或官方下载"
-        echo "2. 在本地终端运行命令进行连接："
-        echo "   ssh -o ProxyCommand=\"cloudflared access tcp --hostname $URL\" runner@localhost"
-        echo "========================================================"
-
-        # 阻塞等待调试，输入 touch /tmp/continue 继续
-        while [ ! -f /tmp/continue ]; do
-          sleep 10
-        done
-
-    #- name: SSH connection to Actions
-       #uses: xiechangan123/ssh2actions@main
-       #if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-       #with:
-         #mode: ngrok
-       #env:
-         #NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-         #SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-         #TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-         #TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    - name: SSH connection to Actions
+      uses: xiechangan123/ssh2actions@main
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      with:
+        mode: ngrok
+      env:
+        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Download package
       id: package
