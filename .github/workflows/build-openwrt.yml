@@ -23,6 +23,10 @@ on:
 #  schedule:
 #    - cron: 0 9 * * 1-5
 
+concurrency:
+  group: OpenWrt Builder          # 同一组内只允许一个运行
+  cancel-in-progress: true        # 有新的就取消正在运行的旧任务
+
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: main
@@ -37,7 +41,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-26.04 
 
     steps:
     - name: Checkout
@@ -49,9 +53,9 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo docker image prune --all --force
-        sudo -E apt-get -qq update
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo apt -qq update
+        sudo apt -qq autoremove --purge
+        sudo apt -qq clean
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
